@@ -1,0 +1,88 @@
+# .NET
+## Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+_UpgradeReport_Files/
+_TestResult/
+[Nn]ode_modules/
+
+ 
+
+## Visual Studio files
+*.VisualState.xml
+*.userprefs
+*.cache
+*.dll.refresh
+*_i.c
+*_p.c
+*.ilk
+*.meta
+*.obj
+*.pch
+*.pdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*_wpftmp.csproj
+*Project.lock.json
+*.exe
+*.msi
+*.deploy
+*.swp
+*.user
+*.vshost.*
+*.vspscc
+*_ReSharper.*
+*.resharper
+[Tt]est[Rr]esult*
+[Oo]ut/
+
+ 
+
+## Visual Studio code coverage results
+*.coverage
+*.coveragexml
+
+ 
+
+## TFS 2012 Local Workspace
+$tf/
+
+ 
+
+## Web publishing
+*.Publish.xml
+*.pubxml
+*.pubxml.*
+*.pfx
+*.publishproj
+
+ 
+
+## Windows Azure Build Output
+csx/
+*.build.csdef
+
+ 
+
+## Windows Store app package directory
+AppPackages/
+BundleArtifacts/
+Package.StoreAssociation.xml
+._AppPackages/
+*.[Cc]ache
