@@ -4,6 +4,7 @@ using CreditContolTrackerAPIs.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CreditContolTrackerAPIs.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230510060923_changedDatatype")]
+    partial class changedDatatype
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -122,10 +125,10 @@ namespace CreditContolTrackerAPIs.Migrations
                     b.Property<string>("ArPoc")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long?>("BalanceInCurrency")
+                    b.Property<long>("BalanceInCurrency")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("BalanceInUsd")
+                    b.Property<long>("BalanceInUsd")
                         .HasColumnType("bigint");
 
                     b.Property<string>("BrnFacTuName")
@@ -140,10 +143,10 @@ namespace CreditContolTrackerAPIs.Migrations
                     b.Property<string>("ContractPartyName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long?>("CreditNoteDiscounts")
+                    b.Property<long>("CreditNoteDiscounts")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("CreditUsdamount")
+                    b.Property<long>("CreditUsdamount")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Currency")
@@ -158,7 +161,7 @@ namespace CreditContolTrackerAPIs.Migrations
                     b.Property<string>("DeliveryPartner")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("DueDate")
+                    b.Property<DateTime>("DueDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("EntityId")
@@ -167,10 +170,10 @@ namespace CreditContolTrackerAPIs.Migrations
                     b.Property<string>("FusionAccountName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long?>("FusionAccountNumber")
+                    b.Property<long>("FusionAccountNumber")
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime?>("InvoiceDate")
+                    b.Property<DateTime>("InvoiceDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("InvoiceManager")
@@ -218,7 +221,7 @@ namespace CreditContolTrackerAPIs.Migrations
                     b.Property<string>("UpdatedSalesVp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long?>("Usdbalance")
+                    b.Property<long>("Usdbalance")
                         .HasColumnType("bigint");
 
                     b.HasKey("InvoiceNo");
@@ -280,7 +283,7 @@ namespace CreditContolTrackerAPIs.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReceiptId"));
 
-                    b.Property<long?>("AmountInUsd")
+                    b.Property<long>("AmountInUsd")
                         .HasColumnType("bigint");
 
                     b.Property<string>("BankName")
@@ -292,13 +295,13 @@ namespace CreditContolTrackerAPIs.Migrations
                     b.Property<long>("Column8")
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime?>("Date")
+                    b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("InvoiceNo")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<long?>("RecOrigCurrAmount")
+                    b.Property<long>("RecOrigCurrAmount")
                         .HasColumnType("bigint");
 
                     b.Property<string>("ReceivedIn")

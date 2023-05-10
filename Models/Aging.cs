@@ -7,6 +7,6 @@ public partial class Aging
 {
     public int AgingId { get; set; }
 
-    public string AgingName { get; set; } = null!;
+    public string? AgingName { get; set; } = null!;
     public virtual ICollection<InvoiceDetail> invoiceDetail { get; set; }
 }

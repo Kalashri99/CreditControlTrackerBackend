@@ -12,25 +12,25 @@ public partial class InvoiceDetail
 
     public string PoNo { get; set; }
 
-    public DateTime InvoiceDate { get; set; }
+    public DateTime? InvoiceDate { get; set; }
 
-    public DateTime DueDate { get; set; }
+    public DateTime? DueDate { get; set; }
 
-    public long BalanceInCurrency { get; set; }
+    public long? BalanceInCurrency { get; set; }
 
-    public long Currency { get; set; }
+    public string? Currency { get; set; }
 
-    public long Usdbalance { get; set; }
+    public long? Usdbalance { get; set; }
 
-    public string Provisioning { get; set; }
+    public string? Provisioning { get; set; }
 
-    public long BalanceInUsd { get; set; }
+    public long? BalanceInUsd { get; set; }
 
-    public long CreditNoteDiscounts { get; set; }
+    public long? CreditNoteDiscounts { get; set; }
 
-    public long CreditUsdamount { get; set; }
+    public long? CreditUsdamount { get; set; }
 
-    public string AccountManager { get; set; }
+    public string? AccountManager { get; set; }
 
     public string Cell { get; set; }
 
@@ -64,7 +64,7 @@ public partial class InvoiceDetail
 
     public string SalesVp { get; set; }
 
-    public long FusionAccountNumber { get; set; }
+    public long? FusionAccountNumber { get; set; }
 
     public string FusionAccountName { get; set; }
 
@@ -74,7 +74,7 @@ public partial class InvoiceDetail
 
     public int AccountTypeId { get; set; }
 
-    public int CostumerId { get; set; }
+    public int CustomerId { get; set; }
 
     public int InvoiceStatusId { get; set; }
 
@@ -92,7 +92,7 @@ public partial class InvoiceDetail
 
     public virtual CompanyCategory CompanyCategory { get; set; }
 
-    public virtual Customer Costumer { get; set; }
+    public virtual Customer customer { get; set; }
 
     public virtual Entity Entity { get; set; }
 

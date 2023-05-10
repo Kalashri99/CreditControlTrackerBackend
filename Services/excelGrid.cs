@@ -107,7 +107,16 @@ namespace CreditControlTrackerAPIs.Services
             return dataTable;
         }
 
+        long stringToLong(string data)
+        {
+            return long.TryParse(data, out long var1) ? var1 : 0;
+        }
 
+        DateTime? stringToDateTime(string data)
+        {
+            DateTime? date = !string.IsNullOrEmpty(data) ? DateTime.Parse(data) : null;
+            return date;
+        }
         public void InsertData()
         {
             var dataTable = datatable();
@@ -120,7 +129,115 @@ namespace CreditControlTrackerAPIs.Services
                 int invoiceStatusId = AddInvoiceStatus(row[12].ToString());
                 int agingId = AddAging(row[13].ToString());
                 int companyCategoryId = AddCompanyCategory(row[48].ToString());
-                int customerId = AddCostumer(row[1].ToString(), row[2].ToString());
+                int customerId = AddCustomer(row[1].ToString(), row[2].ToString());
+                //string dateString = row[15].ToString();
+               // DateTime? date = !string.IsNullOrEmpty(dateString) ? DateTime.Parse(dateString) : null;
+                // Console.WriteLine("================" + row[16].GetType()+"==============="+long.Parse(row[16].ToString()));
+                
+                int receiptId = AddReceipt(stringToDateTime(row[15].ToString()), stringToLong(row[16]?.ToString()),
+                    stringToLong(row[17]?.ToString()), row[18].ToString(), row[19].ToString(),row[20].ToString());
+                string invNo=row[3].ToString(); 
+                var existingInvoiceDetail = _context.InvoiceDetails.FirstOrDefault(i=>i.InvoiceNo==invNo);
+                string InvoiceId;
+                if (existingInvoiceDetail == null)
+                {
+                    var invoiceDetail = new InvoiceDetail()
+                    {
+                        InvoiceNo = invNo,
+                        PoNo = row[4].ToString(),
+                        InvoiceDate = stringToDateTime(row[6].ToString()),
+                        DueDate =stringToDateTime(row[8].ToString()),
+                        BalanceInCurrency = stringToLong(row[9].ToString()),
+                        Currency = row[10].ToString(),
+                        Usdbalance=stringToLong(row[11].ToString()),
+                        Provisioning=row[14].ToString(),
+                        BalanceInUsd=stringToLong(row[22].ToString()),
+                        CreditNoteDiscounts=stringToLong(row[23].ToString()),
+                        CreditUsdamount=stringToLong(row[24].ToString()),
+                        AccountManager=row[26].ToString(),
+                        Cell=row[27].ToString(),
+                        BrnFacTuName=row[28].ToString(),
+                        NewBu=row[29].ToString(),
+                        ArPoc=row[30].ToString(),
+                        NewDu=row[31].ToString(),
+                        NewOu=row[32].ToString(),
+                        InvoiceTypeId=invoiceTypeId,
+                        ContractPartyName=row[34].ToString(),
+                        ProjectContractId=row[35].ToString(),
+                        InvoiceManager=row[36].ToString(),
+                        SalesPocasperIms=row[37].ToString(),
+                        OtherReference=row[38].ToString(),
+                        DeliveryPartner=row[40].ToString(),
+                        DeliveryHead=row[41].ToString(),
+                        SalesPoc=row[42].ToString(),
+                        SalesVp=row[43].ToString(),
+                        FusionAccountName=row[44].ToString(),
+                        FusionAccountNumber=stringToLong(row[45].ToString()),
+                        UpdatedSalesPoc=row[46].ToString(),
+                        UpdatedSalesVp=row[47].ToString(),
+                        AccountTypeId=accountTypeId,
+                        CustomerId=customerId,
+                        CompanyCategoryId=companyCategoryId,
+                        InvoiceStatusId=invoiceStatusId,
+                        AgingId=agingId,
+                        EntityId=entityId
+
+                    };
+                    _context.InvoiceDetails.Add(invoiceDetail);
+                    _context.SaveChanges();
+                    InvoiceId = invoiceDetail.InvoiceNo;
+                }
+                else
+                {
+
+                    existingInvoiceDetail.PoNo = row[4].ToString();
+                    existingInvoiceDetail.InvoiceDate = stringToDateTime(row[6].ToString());
+                    existingInvoiceDetail.DueDate = stringToDateTime(row[8].ToString());
+                    existingInvoiceDetail.BalanceInCurrency = stringToLong(row[9].ToString());
+                    existingInvoiceDetail.Currency = row[10].ToString();
+                    existingInvoiceDetail.Usdbalance = stringToLong(row[11].ToString());
+                    existingInvoiceDetail.Provisioning = row[14].ToString();
+                    existingInvoiceDetail.BalanceInUsd = stringToLong(row[22].ToString());
+                    existingInvoiceDetail.CreditNoteDiscounts = stringToLong(row[23].ToString());
+                    existingInvoiceDetail.CreditUsdamount =stringToLong(row[24].ToString());
+                    existingInvoiceDetail.AccountManager = row[26].ToString();
+                    existingInvoiceDetail.Cell = row[27].ToString();
+                    existingInvoiceDetail.BrnFacTuName = row[28].ToString();
+                    existingInvoiceDetail.NewBu = row[29].ToString();
+                    existingInvoiceDetail.ArPoc = row[30].ToString();
+                    existingInvoiceDetail.NewDu = row[31].ToString();
+                    existingInvoiceDetail.NewOu = row[32].ToString();
+                    existingInvoiceDetail.InvoiceTypeId = invoiceTypeId;
+                    existingInvoiceDetail.ContractPartyName = row[34].ToString();
+                    existingInvoiceDetail.ProjectContractId = row[35].ToString();
+                    existingInvoiceDetail.InvoiceManager = row[36].ToString();
+                    existingInvoiceDetail.SalesPocasperIms = row[37].ToString();
+                    existingInvoiceDetail.OtherReference = row[38].ToString();
+                    existingInvoiceDetail.DeliveryPartner = row[40].ToString();
+                    existingInvoiceDetail.DeliveryHead = row[41].ToString();
+                    existingInvoiceDetail.SalesPoc = row[42].ToString();
+                    existingInvoiceDetail.SalesVp = row[43].ToString();
+                    existingInvoiceDetail.FusionAccountName = row[44].ToString();
+                    existingInvoiceDetail.FusionAccountNumber = stringToLong(row[45].ToString());
+                    existingInvoiceDetail.UpdatedSalesPoc = row[46].ToString();
+                    existingInvoiceDetail.UpdatedSalesVp = row[47].ToString();
+                    existingInvoiceDetail.AccountTypeId = accountTypeId;
+                    existingInvoiceDetail.CustomerId = customerId;
+                    existingInvoiceDetail.CompanyCategoryId = companyCategoryId;
+                    existingInvoiceDetail.InvoiceStatusId = invoiceStatusId;
+                    existingInvoiceDetail.AgingId = agingId;
+                    existingInvoiceDetail.EntityId = entityId;
+
+                    _context.InvoiceDetails.Update(existingInvoiceDetail);
+                    _context.SaveChanges();
+                    InvoiceId = existingInvoiceDetail.InvoiceNo;
+
+                }
+                    var receipt=_context.Receipts.FirstOrDefault(r=>r.ReceiptId== receiptId);   
+                if (receipt!=null)
+                {
+                    receipt.InvoiceNo = InvoiceId;
+                }
 
 
 
@@ -260,7 +377,7 @@ namespace CreditControlTrackerAPIs.Services
             return AgingId;
         }
 
-        public int AddCostumer(string Name, string AccNo)
+        public int AddCustomer(string Name, string AccNo)
         {
             int customerId;
 
@@ -313,7 +430,7 @@ namespace CreditControlTrackerAPIs.Services
 
             return companyCategoryId;
         }
-        public int AddReceipt(DateTime date, int recOrigCurrAmount, int amountInUsd, string receivedIn, string checkWire, string bankName)
+        public int AddReceipt(DateTime? date, long recOrigCurrAmount, long amountInUsd, string receivedIn, string checkWire, string bankName)
         {
             int receiptId;
 
