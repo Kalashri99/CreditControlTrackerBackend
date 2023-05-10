@@ -1,4 +1,6 @@
+using CreditContolTrackerAPIs.Interface;
 using CreditContolTrackerAPIs.Models;
+using CreditContolTrackerAPIs.Repository;
 using CreditControlTrackerAPIs.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +15,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("conn")));
 builder.Services.AddScoped<excelGrid>();
+builder.Services.AddScoped<IDropdownRepository,DropdownRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
