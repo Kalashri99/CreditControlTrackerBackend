@@ -16,7 +16,23 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("conn")));
 builder.Services.AddScoped<excelGrid>();
 builder.Services.AddScoped<IDropdownRepository,DropdownRepository>();
+
 var app = builder.Build();
+
+builder.Services.AddCors();
+app.UseCors(x => x
+
+.AllowAnyMethod()
+
+.AllowAnyHeader()
+
+.SetIsOriginAllowed(origin => true) // allow any origin
+
+                .AllowCredentials()); // allow credentials
+
+
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

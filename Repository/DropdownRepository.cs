@@ -31,5 +31,10 @@ namespace CreditContolTrackerAPIs.Repository
         {
             return _context.InvoiceTypes.ToList();
         }
+
+        public ICollection<InvoiceDetail> GetInvoiceDetails()
+        {
+            return _context.InvoiceDetails.ToList();
+        }
     }
     }

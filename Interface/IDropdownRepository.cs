@@ -8,5 +8,6 @@ namespace CreditContolTrackerAPIs.Interface
         ICollection<Customer> GetCustomer();
         ICollection<CompanyCategory> GetCompanyCategory();
         ICollection<InvoiceType> GetInvoiceType();
+        ICollection<InvoiceDetail> GetInvoiceDetails();
     }
 }
