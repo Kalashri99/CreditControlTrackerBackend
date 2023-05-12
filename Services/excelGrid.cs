@@ -20,7 +20,7 @@ namespace CreditControlTrackerAPIs.Services
         public object[,] datatable()
         {
             DataTable dataTable = new DataTable();
-            string filePath = @"D:\Credit_Control_System\Data.xlsx";
+            string filePath = @"D:\newSheet.xlsx";
             Application excel = new Application();
             Workbook workbook = excel.Workbooks.Open(filePath);
             Worksheet worksheet = workbook.ActiveSheet;
@@ -113,6 +113,11 @@ namespace CreditControlTrackerAPIs.Services
             return long.TryParse(data, out long var1) ? var1 : 0;
         }
 
+        int stringToInt(string data)
+        {
+            return int.TryParse(data, out int var1) ? var1 : 0;
+        }
+
         DateTime? stringToDateTime(string data)
         {
             // DateTime? date = !string.IsNullOrEmpty(data) ? DateTime.Parse(data) : null;
@@ -157,7 +162,7 @@ namespace CreditControlTrackerAPIs.Services
                         InvoiceNo = InvoiceNo,
                         PoNo = objectArray[row,5]?.ToString(),
                         InvoiceDate = stringToDateTime(objectArray[row, 7]?.ToString()),
-                        PaymentTerm=int.Parse(objectArray[row,8].ToString()),
+                        PaymentTerm=stringToInt(objectArray[row,8]?.ToString()),
                         DueDate =stringToDateTime(objectArray[row, 9]?.ToString()),
                         BalanceInCurrency = stringToLong(objectArray[row,10]?.ToString()),
                         Currency = objectArray[row, 11]?.ToString(),
