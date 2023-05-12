@@ -15,7 +15,9 @@ public partial class InvoiceDetail
     public DateTime? InvoiceDate { get; set; }
 
     public DateTime? DueDate { get; set; }
+    public int? PaymentTerm { get; set; }
 
+    public string? Category { get; set; }    
     public long? BalanceInCurrency { get; set; }
 
     public string? Currency { get; set; }

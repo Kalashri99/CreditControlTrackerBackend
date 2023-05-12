@@ -17,9 +17,9 @@ namespace CreditControlTrackerAPIs.Controllers
 
     [HttpPost]
     [Route("InsertDataIntoDatabase")]
-    public string InsertDataFromExcel()
+    public async Task<string> InsertDataFromExcel()
         {
-            _excel.InsertData();
+           await _excel.InsertData();
             return "Data successfully Inserted";
         }
    
