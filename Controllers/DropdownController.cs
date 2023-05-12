@@ -2,6 +2,8 @@
 using CreditControlTrackerAPIs.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+using CreditContolTrackerAPIs.Dto;
 using System.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -14,18 +16,18 @@ namespace CreditContolTrackerAPIs.Controllers
     {
 
         private readonly IDropdownRepository _dropdownRepository;
-  //      private readonly IMapper _mapper;
-        public CreditControlController(IDropdownRepository dropdownRepository)
+        private readonly IMapper _mapper;
+        public CreditControlController(IDropdownRepository dropdownRepository, IMapper mapper)
         {
             _dropdownRepository = dropdownRepository;
-     //       _mapper = mapper;
+            _mapper = mapper;
         }
 
-        [HttpGet("InvoiceDetail")]
+        [HttpGet("AllInvoiceDetail")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<InvoiceDetail>))]
         public async Task<IActionResult> GetInvoiceDetail()
         {
-            var InvoiceDetails = _dropdownRepository.GetInvoiceDetails().ToList();
+            var InvoiceDetails = _dropdownRepository.GetAllInvoiceDetails().ToList();
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             return Ok(InvoiceDetails);
@@ -75,6 +77,40 @@ namespace CreditContolTrackerAPIs.Controllers
                 return BadRequest(ModelState);
             return Ok(InvoiceTypes);
         }
-        
+
+        //[HttpGet("api/invoiceDetails")]
+        //public IActionResult GetInvoiceDetails(string Entity, string CompanyCategory, string InvoiceType, string Customers)
+        //{
+        //    var invoiceDetails = _dropdownRepository.GetInvoiceDetails(Entity, CompanyCategory, InvoiceType, Customers);
+
+        //    if (invoiceDetails == null || !invoiceDetails.Any())
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return Ok(invoiceDetails);
+        //}
+
+        //[HttpGet("AllInvoiceDetails")]
+        //[ProducesResponseType(200, Type = typeof(IEnumerable<InvoiceType>))]
+        //public async Task<IActionResult> GetAllInvoiceDetails()
+        //{
+        //    var InvoiceDetails = _dropdownRepository.GetAllInvoiceDetails();
+        //    if (!ModelState.IsValid)
+        //        return BadRequest(ModelState);
+        //    return Ok(InvoiceDetails);
+        //}
+
+
+        [HttpGet("api/invoiceDetails")]
+        public IActionResult GetInvoiceDetails(string Entity, string CompanyCategory, string InvoiceType, string Customer)
+        {
+            var invoiceDetails = _dropdownRepository.GetInvoiceDetails(Entity,CompanyCategory,InvoiceType,Customer);
+
+            return Ok(invoiceDetails);
         }
+
+
+
+    }
     }
