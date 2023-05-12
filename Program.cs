@@ -1,11 +1,13 @@
+using CreditContolTrackerAPIs.Interface;
 using CreditContolTrackerAPIs.Models;
+using CreditContolTrackerAPIs.Repository;
 using CreditControlTrackerAPIs.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -13,7 +15,24 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("conn")));
 builder.Services.AddScoped<excelGrid>();
+builder.Services.AddScoped<IDropdownRepository,DropdownRepository>();
+
 var app = builder.Build();
+
+builder.Services.AddCors();
+app.UseCors(x => x
+
+.AllowAnyMethod()
+
+.AllowAnyHeader()
+
+.SetIsOriginAllowed(origin => true) // allow any origin
+
+                .AllowCredentials()); // allow credentials
+
+
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

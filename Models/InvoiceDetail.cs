@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CreditControlTrackerAPIs.Models;
 
@@ -83,8 +84,6 @@ public partial class InvoiceDetail
     public int AgingId { get; set; }
 
     public int CompanyCategoryId { get; set; }
-
- 
 
     public int EntityId { get; set; }
 
