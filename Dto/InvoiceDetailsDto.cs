@@ -3,6 +3,9 @@ namespace CreditContolTrackerAPIs.Dto
 {
     public class InvoiceDetailsDto
     {
+        public string Entity { get; set; }
+        public string CustomerName { get; set; }
+        public string CustomerAccountNumber { get; set; }
         public string InvoiceNo { get; set; }
 
         public string PoNo { get; set; }
@@ -67,9 +70,7 @@ namespace CreditContolTrackerAPIs.Dto
 
         public string UpdatedSalesVp { get; set; }
         public string AccountType { get; set; }
-        public string Customer { get; set; }
-
-        public string Entity { get; set; }
+        
 
         public string Aging { get; set; }
 
