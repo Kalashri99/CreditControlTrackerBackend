@@ -273,7 +273,7 @@ namespace CreditControlTrackerAPIs.Services
                 int invoiceTypeId = AddInvoiceTypes(row[33].ToString());
                 int invoiceStatusId = AddInvoiceStatus(row[12].ToString());
                 int agingId = AddAging(row[13].ToString());
-                int companyCategoryId = AddCompanyCategory(row[48].ToString());
+                int companyCategoryId = AddCompanyCategory(row[49].ToString());
                 int customerId = AddCustomer(row[1].ToString(), row[2].ToString());
 
 
@@ -318,8 +318,8 @@ namespace CreditControlTrackerAPIs.Services
                         DeliveryHead=row[41].ToString(),
                         SalesPoc=row[42].ToString(),
                         SalesVp=row[43].ToString(),
-                        FusionAccountName=row[44].ToString(),
-                        FusionAccountNumber=stringToLong(row[45].ToString()),
+                        FusionAccountName=row[45].ToString(),
+                        FusionAccountNumber=stringToLong(row[44].ToString()),
                         UpdatedSalesPoc=row[46].ToString(),
                         UpdatedSalesVp=row[47].ToString(),
                         AccountTypeId=accountTypeId,

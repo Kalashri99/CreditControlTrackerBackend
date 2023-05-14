@@ -53,8 +53,8 @@ namespace CreditContolTrackerAPIs.Repository
                 CompanyCategoryId = e.CompanyCategoryId,
                 CompanyCategoryName = e.CompanyCategoryName,
 
-            // Map other properties accordingly
-        }).ToList();
+                // Map other properties accordingly
+            }).ToList();
 
             return companyCategory;
         }
@@ -276,16 +276,41 @@ namespace CreditContolTrackerAPIs.Repository
                 UpdatedSalesVp = d.UpdatedSalesVp,
                 AccountType = d.AccountType.AccountTypeName,
                 CustomerName = d.customer.CustomerName,
-               CustomerAccountNumber = d.customer.CustomerAccountNumber,
+                CustomerAccountNumber = d.customer.CustomerAccountNumber,
                 Aging = d.Aging.AgingName,
                 CompanyCategory = d.CompanyCategory.CompanyCategoryName,
                 InvoiceStatus = d.InvoiceStatus.InvoiceName,
-                InvoiceType = d.InvoiceType.InvoiceTypeName
+                InvoiceType = d.InvoiceType.InvoiceTypeName,
+
+
             }).ToList();
+            var invoiceNos = invoiceDetails.Select(d => d.InvoiceNo).ToList();
+            var receipts = _context.Receipts.Where(r => invoiceNos.Contains(r.InvoiceNo)).ToList();
 
+            foreach (var invoiceDetail in invoiceDetails)
+            {
+                // Find the associated Receipt for each InvoiceDetailsDto
+                var receipt = receipts.FirstOrDefault(r => r.InvoiceNo == invoiceDetail.InvoiceNo);
+
+                // Map the relevant Receipt properties to InvoiceDetailsDto
+                if (receipt != null)
+                {
+                    //invoiceDetail.ReceiptId = receipt.ReceiptId;
+                    invoiceDetail.Date = receipt.Date;
+                    invoiceDetail.RecOrigCurrAmount = receipt.RecOrigCurrAmount;
+                    invoiceDetail.AmountInUsd = receipt.AmountInUsd;
+                    invoiceDetail.ReceivedIn = receipt.ReceivedIn;
+                    invoiceDetail.CheckWire = receipt.CheckWire;
+                    invoiceDetail.BankName = receipt.BankName;
+                    invoiceDetail.Column8 = receipt.Column8;
+                    // ... map other properties
+                }
+
+                //return invoiceDetails;
+            }
             return invoiceDetails;
-        }
 
+        }
     }
 }
 
