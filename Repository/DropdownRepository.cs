@@ -281,6 +281,8 @@ namespace CreditContolTrackerAPIs.Repository
                 CompanyCategory = d.CompanyCategory.CompanyCategoryName,
                 InvoiceStatus = d.InvoiceStatus.InvoiceName,
                 InvoiceType = d.InvoiceType.InvoiceTypeName,
+                Category = d.Category,
+                PaymentTerm= d.PaymentTerm
 
 
             }).ToList();

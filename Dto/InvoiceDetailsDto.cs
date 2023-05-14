@@ -79,8 +79,13 @@ namespace CreditContolTrackerAPIs.Dto
         public string InvoiceStatus { get; set; }
 
         public string InvoiceType { get; set; }
+        public int? PaymentTerm { get; set; }
+
+
+
+        public string? Category { get; set; }
         //public Receipt Receipt { get; set; }
-       // public int ReceiptId { get; set; }
+        // public int ReceiptId { get; set; }
         public DateTime? Date { get; set; }
         public long? RecOrigCurrAmount { get; set; }
         public long? AmountInUsd { get; set; }
