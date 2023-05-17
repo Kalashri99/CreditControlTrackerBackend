@@ -152,7 +152,7 @@ namespace CreditControlTrackerAPIs.Services
                 for (int row = startIndex; row <= endIndex; row++)
                 {
                     string InvoiceNo = objectArray[row, 4]?.ToString();
-                    if (InvoiceNo == " " || InvoiceNo == "0")
+                    if (InvoiceNo == " " || InvoiceNo == "0" || InvoiceNo==null)
                         continue;
                     int entityId = AddEntity(objectArray[row, 1]?.ToString());
                     int accountTypeId = AddAccountType(objectArray[row, 40]?.ToString());
@@ -164,7 +164,15 @@ namespace CreditControlTrackerAPIs.Services
                     int receiptId = AddReceipt(stringToDateTime(objectArray[row, 16]?.ToString()), stringToLong(objectArray[row, 17]?.ToString()),
                        stringToLong(objectArray[row, 18]?.ToString()), objectArray[row, 19]?.ToString(), objectArray[row, 20]?.ToString(), objectArray[row, 21]?.ToString());
                     // string invNo=row[3].ToString(); 
-                    var existingInvoiceDetail = _context.InvoiceDetails.FirstOrDefault(i => i.InvoiceNo == InvoiceNo);
+                    //var existingInvoiceDetail = _context.InvoiceDetails.FirstOrDefault(i => i.InvoiceNo == InvoiceNo);
+                    //if(existingInvoiceDetail==null) 
+                    //    existingInvoiceDetail=InsertInvoiceDetailBulk.FirstOrDefault(t=>t.InvoiceNo==InvoiceNo);
+                    //if(existingInvoiceDetail==null)
+                    //    existingInvoiceDetail=UpdateInvoiceDetailsBulk.FirstOrDefault(t=>t.InvoiceNo==InvoiceNo);
+                    var existingInvoiceDetail = _context.InvoiceDetails.FirstOrDefault(i => i.InvoiceNo == InvoiceNo)
+    ?? InsertInvoiceDetailBulk.FirstOrDefault(t => t.InvoiceNo == InvoiceNo)
+    ?? UpdateInvoiceDetailsBulk.FirstOrDefault(t => t.InvoiceNo == InvoiceNo);
+
                     //  string InvoiceId;
                     if (existingInvoiceDetail == null)
                     {
@@ -275,10 +283,11 @@ namespace CreditControlTrackerAPIs.Services
 
 
                 }
-                if(UpdateInvoiceDetailsBulk.Any())
-                UpdateInvoiceDetailsBatchData(UpdateInvoiceDetailsBulk);
+               
                 if (InsertInvoiceDetailBulk.Any())
                     InsertInvoiceDetailsBatchData(InsertInvoiceDetailBulk);
+                if (UpdateInvoiceDetailsBulk.Any())
+                    UpdateInvoiceDetailsBatchData(UpdateInvoiceDetailsBulk);
                 if (UpdateReceiptBulk.Any())
               UpdateRecieptBatchData(UpdateReceiptBulk);
               
@@ -331,9 +340,13 @@ namespace CreditControlTrackerAPIs.Services
                 int customerId = AddCustomer(objectArray[row, 2]?.ToString(), objectArray[row, 3]?.ToString());
                  int receiptId = AddReceipt(stringToDateTime(objectArray[row, 16]?.ToString()), stringToLong(objectArray[row, 17]?.ToString()),
                     stringToLong(objectArray[row, 18]?.ToString()), objectArray[row, 19]?.ToString(), objectArray[row, 20]?.ToString(), objectArray[row, 21]?.ToString());
-               // string invNo=row[3].ToString(); 
-                var existingInvoiceDetail = _context.InvoiceDetails.FirstOrDefault(i=>i.InvoiceNo==InvoiceNo);
-              //  string InvoiceId;
+                // string invNo=row[3].ToString(); 
+                //   var existingInvoiceDetail = _context.InvoiceDetails.FirstOrDefault(i=>i.InvoiceNo==InvoiceNo);
+                //  string InvoiceId;
+                var existingInvoiceDetail = _context.InvoiceDetails.FirstOrDefault(i => i.InvoiceNo == InvoiceNo)
+      ?? InsertInvoiceDetailBulk.FirstOrDefault(t => t.InvoiceNo == InvoiceNo)
+      ?? UpdateInvoiceDetailsBulk.FirstOrDefault(t => t.InvoiceNo == InvoiceNo);
+
                 if (existingInvoiceDetail == null)
                 {
                     var invoiceDetail = new InvoiceDetail()
