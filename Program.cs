@@ -14,6 +14,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("conn")));
+builder.Services.AddScoped<ApplicationDbContextFactory>((provider) =>
+{
+    var dbContextOptions = provider.GetRequiredService<DbContextOptions<ApplicationDbContext>>();
+    return new ApplicationDbContextFactory(dbContextOptions);
+});
 builder.Services.AddScoped<excelGrid>();
 builder.Services.AddScoped<IDropdownRepository,DropdownRepository>();
 
