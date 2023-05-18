@@ -1,4 +1,6 @@
 ﻿
+using CreditControlTrackerAPIs.Models;
+
 namespace CreditContolTrackerAPIs.Dto
 {
     public class InvoiceDetailsDto
@@ -84,8 +86,8 @@ namespace CreditContolTrackerAPIs.Dto
 
 
         public string? Category { get; set; }
-        //public Receipt Receipt { get; set; }
-        // public int ReceiptId { get; set; }
+        public Receipt Receipt { get; set; }
+        public int ReceiptId { get; set; }
         public DateTime? Date { get; set; }
         public long? RecOrigCurrAmount { get; set; }
         public long? AmountInUsd { get; set; }
