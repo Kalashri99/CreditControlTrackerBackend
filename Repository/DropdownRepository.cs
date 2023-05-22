@@ -208,6 +208,30 @@ namespace CreditContolTrackerAPIs.Repository
             return invoiceDetails;
 
         }
+
+  //      var entities = _context.Entities
+  //.Select(e => new EntityDto
+  //{
+  //    EntityId = e.EntityId,
+  //    EntityName = e.EntityName
+  //    // Map other properties accordingly
+  //})
+  //.ToList(); 
+
+        public IEnumerable<String> GetColumns()
+        {
+            var col = _context.Model.FindEntityType(typeof(InvoiceDetail));
+            var columnNames = col.GetProperties()
+                .Select(p=>p.GetColumnName())
+                .ToList();
+            //var col = $"SELECT name FROM sys.columns WHERE object_id = OBJECT_ID('InvoiceDetails')";
+            //var query = _context.InvoiceDetails.AsQueryable();
+            //var col = _context.InvoiceDetails.
+            //    Select(e => e.name
+            //    )
+            //SELECT name FROM sys.columns WHERE object_id = OBJECT_ID('InvoiceDetails')
+            return columnNames;
+        }
     }
 }
 

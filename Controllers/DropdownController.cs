@@ -89,7 +89,25 @@ namespace CreditContolTrackerAPIs.Controllers
             return Ok(InvoiceTypes);
         }
 
-        
+        [HttpGet("ColumnNames")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<String>))]
+        public async Task<IActionResult> GetColumns()
+        {
+            var col = _dropdownRepository.GetColumns();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            return Ok(col);
+        }
+
+        //[HttpGet("api/invoiceDetails")]
+        //public IActionResult GetInvoiceDetails(string Entity, string CompanyCategory, string InvoiceType, string Customers)
+        //{
+        //    var invoiceDetails = _dropdownRepository.GetInvoiceDetails(Entity, CompanyCategory, InvoiceType, Customers);
+
+        //    if (invoiceDetails == null || !invoiceDetails.Any())
+        //    {
+        //        return NotFound();
+        //    }
 
 
         [HttpGet("api/invoiceDetails")]
