@@ -11,5 +11,6 @@ namespace CreditContolTrackerAPIs.Interface
         ICollection<InvoiceTypeDto> GetInvoiceType();
         IEnumerable<InvoiceDetailsDto> GetInvoiceDetails(string Entity, string CompanyCategory, string InvoiceType, string Customer);
         ICollection<InvoiceDetailsDto> GetAllInvoiceDetails();
+        ICollection<InvoiceDetailsDto> GetAllInvoiceDetailByCustomerId(int id);
     }
 }

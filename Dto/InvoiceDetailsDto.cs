@@ -5,8 +5,10 @@ namespace CreditContolTrackerAPIs.Dto
     {
         public string Entity { get; set; }
         public string CustomerName { get; set; }
+       public int CustomerId { get; set; }    
         public string CustomerAccountNumber { get; set; }
         public string InvoiceNo { get; set; }
+        public int CreditScore { get; set; }
 
         public string PoNo { get; set; }
 
