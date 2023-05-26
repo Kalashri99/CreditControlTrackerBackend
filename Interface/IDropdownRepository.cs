@@ -13,6 +13,7 @@ namespace CreditContolTrackerAPIs.Interface
         Task<List<InvoiceTypeDto>> GetInvoiceType();
         Task<IEnumerable<InvoiceDetailsDto>> GetInvoiceDetails(string Entity, string CompanyCategory, string InvoiceType, string Customer);
         Task<ICollection<InvoiceDetailsDto>> GetAllInvoiceDetails();
+        ICollection<InvoiceDetailsDto> GetAllInvoiceDetailByCustomerId(int id);
         IEnumerable<String> GetColumns();
     }
 }

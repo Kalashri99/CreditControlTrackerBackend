@@ -3,6 +3,8 @@ using CreditContolTrackerAPIs.Interface;
 using CreditContolTrackerAPIs.Models;
 using CreditControlTrackerAPIs.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Globalization;
 
 namespace CreditContolTrackerAPIs.Repository
 {
@@ -141,7 +143,6 @@ namespace CreditContolTrackerAPIs.Repository
                 PoNo = d.PoNo,
                 InvoiceDate = d.InvoiceDate,
                 DueDate = d.DueDate,
-                BalanceInCurrency = d.BalanceInCurrency,
                 Currency = d.Currency,
                 Usdbalance = d.Usdbalance,
                 Provisioning = d.Provisioning,
@@ -170,6 +171,7 @@ namespace CreditContolTrackerAPIs.Repository
                 UpdatedSalesPoc = d.UpdatedSalesPoc,
                 UpdatedSalesVp = d.UpdatedSalesVp,
                 AccountType = d.AccountType.AccountTypeName,
+                CustomerId=d.CustomerId,
                 CustomerName = d.customer.CustomerName,
                 CustomerAccountNumber = d.customer.CustomerAccountNumber,
                 Aging = d.Aging.AgingName,
@@ -207,6 +209,68 @@ namespace CreditContolTrackerAPIs.Repository
             }
             return invoiceDetails;
 
+        }
+
+        public ICollection<InvoiceDetailsDto> GetAllInvoiceDetailByCustomerId(int id)
+        {
+            var query = _context.InvoiceDetails.Where(r=>r.CustomerId == id).AsQueryable();
+           var invoiceDetails = MapToInvoiceDetailsCustomerDto(query);
+            return invoiceDetails;
+        }
+
+        private List<InvoiceDetailsDto> MapToInvoiceDetailsCustomerDto(IQueryable<InvoiceDetail> query)
+        {
+            var invoiceDetails = query.Select(d => new InvoiceDetailsDto
+            {
+                InvoiceNo = d.InvoiceNo,
+                Entity = d.Entity.EntityName,
+                //   PoNo = d.PoNo,
+                InvoiceDate = d.InvoiceDate,
+              DueDate = d.DueDate,
+              
+                CreditScore = -15,
+                //BalanceInCurrency = d.BalanceInCurrency,
+                //Currency = d.Currency,
+                //Usdbalance = d.Usdbalance,
+                //Provisioning = d.Provisioning,
+                //BalanceInUsd = d.BalanceInUsd,
+                //CreditNoteDiscounts = d.CreditNoteDiscounts,
+                //CreditUsdamount = d.CreditUsdamount,
+                //AccountManager = d.AccountManager,
+                //Cell = d.Cell,
+                //BrnFacTuName = d.BrnFacTuName,
+                //NewBu = d.NewBu,
+                //ArPoc = d.ArPoc,
+                //NewDu = d.NewDu,
+                //NewOu = d.NewOu,
+                //InvoiceTypeId = d.InvoiceTypeId,
+                //ContractPartyName = d.ContractPartyName,
+                //ProjectContractId = d.ProjectContractId,
+                //InvoiceManager = d.InvoiceManager,
+                //SalesPocasperIms = d.SalesPocasperIms,
+                //OtherReference = d.OtherReference,
+                //DeliveryPartner = d.DeliveryPartner,
+                //DeliveryHead = d.DeliveryHead,
+                //SalesPoc = d.SalesPoc,
+                //SalesVp = d.SalesVp,
+                //FusionAccountNumber = d.FusionAccountNumber,
+                //FusionAccountName = d.FusionAccountName,
+                //UpdatedSalesPoc = d.UpdatedSalesPoc,
+                //UpdatedSalesVp = d.UpdatedSalesVp,
+                //AccountType = d.AccountType.AccountTypeName,
+                //CustomerId = d.CustomerId,
+                CustomerName = d.customer.CustomerName,
+                //CustomerAccountNumber = d.customer.CustomerAccountNumber,
+                //Aging = d.Aging.AgingName,
+                CompanyCategory = d.CompanyCategory.CompanyCategoryName,
+                InvoiceStatus = d.InvoiceStatus.InvoiceName,
+                InvoiceType = d.InvoiceType.InvoiceTypeName,
+                // Category = d.Category,
+                // PaymentTerm = d.PaymentTerm
+
+
+            }).ToList();
+            return invoiceDetails;  
         }
 
   //      var entities = _context.Entities

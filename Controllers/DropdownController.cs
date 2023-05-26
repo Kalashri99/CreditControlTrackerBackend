@@ -118,6 +118,13 @@ namespace CreditContolTrackerAPIs.Controllers
             return Ok(invoiceDetails);
         }
 
+        [HttpGet("invoiceDetail/{id}")]
+        public IActionResult GetInvoiceDetails(int id)
+        {
+            var invoiceDetails = _dropdownRepository.GetAllInvoiceDetailByCustomerId(id);
+
+            return Ok(invoiceDetails);
+        }
 
 
     }
