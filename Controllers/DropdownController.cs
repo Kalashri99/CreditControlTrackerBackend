@@ -118,7 +118,22 @@ namespace CreditContolTrackerAPIs.Controllers
             return Ok(invoiceDetails);
         }
 
+        [HttpGet("Customer/{id}")]
+        public async Task<IActionResult> GetCustomerInvoice(int id)
+        {
+            var customer = _dropdownRepository.GetCustomerInvoice(id);
 
+
+
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+
+
+            return Ok(customer);
+        }
 
     }
     }

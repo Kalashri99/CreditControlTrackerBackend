@@ -26,6 +26,7 @@ namespace CreditContolTrackerAPIs.Models
         public virtual DbSet<InvoiceType> InvoiceTypes { get; set; }
 
         public virtual DbSet<Receipt> Receipts { get; set; }
+        public virtual DbSet<AnalyticReport> AnalyticReports { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

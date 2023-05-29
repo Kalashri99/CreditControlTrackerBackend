@@ -232,6 +232,34 @@ namespace CreditContolTrackerAPIs.Repository
             //SELECT name FROM sys.columns WHERE object_id = OBJECT_ID('InvoiceDetails')
             return columnNames;
         }
+
+        public async Task<IEnumerable<AnalyticReport>> GetCustomerInvoice(int Id)
+        {
+            //var query = _context.Database.SqlQueryRaw<Customer>("EXEC GetCustomerDataById @CustomerId", new SqlParameter("@CustomerId", Id));
+
+
+
+            //// Execute the query and retrieve the customer
+            //var customer = query.SingleOrDefault();
+
+
+
+            //return (IEnumerable<Customer>)customer;
+            //var parameters = new SqlParameter("@CustomerId", Id);
+
+
+
+            // Call the stored procedure using Entity Framework's FromSqlRaw method
+            var customers = _context.AnalyticReports.FromSql($"GetInvoiceDetailsByCustomerId {Id}").ToList();
+
+
+
+            //var customer = customers.FirstOrDefault();
+
+
+
+            return (IEnumerable<AnalyticReport>)customers;
+        }
     }
 }
 
