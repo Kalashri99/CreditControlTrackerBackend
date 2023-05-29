@@ -1,4 +1,5 @@
-﻿using CreditControlTrackerAPIs.Models;
+﻿using CreditContolTrackerAPIs.Models;
+using CreditControlTrackerAPIs.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CreditContolTrackerAPIs.Models
@@ -26,6 +27,7 @@ namespace CreditContolTrackerAPIs.Models
         public virtual DbSet<InvoiceType> InvoiceTypes { get; set; }
 
         public virtual DbSet<Receipt> Receipts { get; set; }
+        public virtual DbSet<AnalyticReport> AnalyticReports { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -33,6 +35,14 @@ namespace CreditContolTrackerAPIs.Models
                 .HasOne<Entity>(o => o.Entity)
                 .WithMany(c => c.invoiceDetail)
                 .HasForeignKey(o => o.EntityId);
+
+
+
+            modelBuilder.Entity<Customer>(entity =>
+            {
+                // Other property mappings...
+                entity.Property(e => e.CompanyCategory).HasColumnName("CompanyCategory");
+            });
         }
     }
 }
