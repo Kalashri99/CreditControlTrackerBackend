@@ -1,5 +1,5 @@
 ﻿
-using CreditContolTrackerAPIs.Models;
+using CreditControlTrackerAPIs.Models;
 
 namespace CreditContolTrackerAPIs.Dto
 {
