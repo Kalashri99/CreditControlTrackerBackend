@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CreditContolTrackerAPIs.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -93,14 +94,14 @@ public partial class InvoiceDetail
 
     public virtual CompanyCategory CompanyCategory { get; set; }
 
-    public virtual Customer customer { get; set; }
+    public virtual Customer Customer { get; set; }
 
     public virtual Entity Entity { get; set; }
 
     public virtual InvoiceStatus InvoiceStatus { get; set; }
 
     public virtual InvoiceType InvoiceType { get; set; }
-    public virtual ICollection<Receipt> invoiceDetail { get; set; }
+    public virtual ICollection<Receipt> Receipts { get; set; }
 
 
 }

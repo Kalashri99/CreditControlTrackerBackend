@@ -2,7 +2,9 @@
 using CreditContolTrackerAPIs.Interface;
 using CreditContolTrackerAPIs.Models;
 using CreditControlTrackerAPIs.Models;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 using System;
 using System.Globalization;
 
@@ -114,7 +116,7 @@ namespace CreditContolTrackerAPIs.Repository
 
             if (!string.IsNullOrEmpty(customer))
             {
-                query = query.Where(i => i.customer.CustomerName == customer);
+                query = query.Where(i => i.Customer.CustomerName == customer);
             }
 
             var invoiceDetails = await MapToInvoiceDetailsDto(query);
@@ -171,6 +173,8 @@ namespace CreditContolTrackerAPIs.Repository
                 UpdatedSalesPoc = d.UpdatedSalesPoc,
                 UpdatedSalesVp = d.UpdatedSalesVp,
                 AccountType = d.AccountType.AccountTypeName,
+                CustomerName = d.Customer.CustomerName,
+                CustomerAccountNumber = d.Customer.CustomerAccountNumber,
                 CustomerId=d.CustomerId,
                 CustomerName = d.customer.CustomerName,
                 CustomerAccountNumber = d.customer.CustomerAccountNumber,
@@ -297,7 +301,23 @@ namespace CreditContolTrackerAPIs.Repository
             return columnNames;
         }
 
-        
+        public async Task<IEnumerable<AnalyticReport>> GetCustomerInvoice(int Id)
+        {
+            //var query = _context.Database.SqlQueryRaw<Customer>("EXEC GetCustomerDataById @CustomerId", new SqlParameter("@CustomerId", Id));
+
+            //// Execute the query and retrieve the customer
+            //var customer = query.SingleOrDefault();
+
+            //return (IEnumerable<Customer>)customer;
+            //var parameters = new SqlParameter("@CustomerId", Id);
+
+            // Call the stored procedure using Entity Framework's FromSqlRaw method
+            var customers = _context.AnalyticReports.FromSql($"GetInvoiceDetailsByCustomerId {Id}").ToList();
+
+            //var customer = customers.FirstOrDefault();
+
+            return (IEnumerable<AnalyticReport>)customers;
+        }
     }
 }
 

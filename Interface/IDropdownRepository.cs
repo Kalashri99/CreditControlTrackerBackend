@@ -1,4 +1,5 @@
 ﻿using CreditContolTrackerAPIs.Dto;
+using CreditContolTrackerAPIs.Models;
 using CreditControlTrackerAPIs.Models;
 
 namespace CreditContolTrackerAPIs.Interface
@@ -13,7 +14,9 @@ namespace CreditContolTrackerAPIs.Interface
         Task<List<InvoiceTypeDto>> GetInvoiceType();
         Task<IEnumerable<InvoiceDetailsDto>> GetInvoiceDetails(string Entity, string CompanyCategory, string InvoiceType, string Customer);
         Task<ICollection<InvoiceDetailsDto>> GetAllInvoiceDetails();
-        ICollection<InvoiceDetailsDto> GetAllInvoiceDetailByCustomerId(int id);
         IEnumerable<String> GetColumns();
+
+        Task<IEnumerable<AnalyticReport>> GetCustomerInvoice(int Id);
+        ICollection<InvoiceDetailsDto> GetAllInvoiceDetailByCustomerId(int id);
     }
 }

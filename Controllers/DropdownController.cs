@@ -1,10 +1,11 @@
 ﻿using CreditContolTrackerAPIs.Interface;
-using CreditControlTrackerAPIs.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using CreditContolTrackerAPIs.Dto;
 using System.Linq;
+using CreditContolTrackerAPIs.Models;
+using CreditControlTrackerAPIs.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -125,7 +126,25 @@ namespace CreditContolTrackerAPIs.Controllers
 
             return Ok(invoiceDetails);
         }
+        //[HttpGet("api/")]
+        //public async Task<IActionResult> GetCustomerInvoice(int Id)
+        //{
+        //    var result = await _dropdownRepository.GetCustomerInvoice(Id).FromSqlRaw();
+        //    return Ok();
+        //}
 
 
+        [HttpGet("Customer/{id}")]
+        public async Task<IActionResult> GetCustomerInvoice(int id)
+        {
+            var customer = _dropdownRepository.GetCustomerInvoice(id);
+
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(customer);
+        }
     }
     }
