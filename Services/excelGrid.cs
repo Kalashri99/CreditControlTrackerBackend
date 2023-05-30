@@ -4,8 +4,8 @@ using DataTable = System.Data.DataTable;
 using System.Data;
 using Microsoft.Office.Interop.Excel;
 using Application = Microsoft.Office.Interop.Excel.Application;
-using CreditContolTrackerAPIs.Models;
 using CreditControlTrackerAPIs.Models;
+using CreditContolTrackerAPIs.Models;
 
 namespace CreditControlTrackerAPIs.Services
 {

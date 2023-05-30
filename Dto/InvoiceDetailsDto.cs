@@ -1,5 +1,5 @@
 ﻿
-using CreditContolTrackerAPIs.Models;
+using CreditControlTrackerAPIs.Models;
 
 namespace CreditContolTrackerAPIs.Dto
 {
@@ -11,7 +11,7 @@ namespace CreditContolTrackerAPIs.Dto
         public string CustomerAccountNumber { get; set; }
         public string InvoiceNo { get; set; }
         public int CreditScore { get; set; }
-
+       
         public string PoNo { get; set; }
 
         public DateTime? InvoiceDate { get; set; }
