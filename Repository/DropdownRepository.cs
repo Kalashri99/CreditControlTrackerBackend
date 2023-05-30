@@ -250,7 +250,7 @@ namespace CreditContolTrackerAPIs.Repository
 
 
             // Call the stored procedure using Entity Framework's FromSqlRaw method
-            var customers = _context.AnalyticReports.FromSql($"GetInvoiceDetailsByCustomerId {Id}").ToList();
+            var customers = _context.AnalyticReports.FromSql($"GetInvoiceDetailsByCustomer {Id}").ToList();
 
 
 

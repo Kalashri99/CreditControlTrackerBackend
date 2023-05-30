@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CreditControlTrackerAPIs.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace CreditContolTrackerAPIs.Models
 {
@@ -9,8 +10,9 @@ namespace CreditContolTrackerAPIs.Models
         public DateTime InvoiceDate { get; set; }
         public DateTime DueDate { get; set; }
         public int CreditChange { get; set; }
-        public int CustomerId { get; set; }
-        public long Usdbalance { get; set; }
+        public long BalanceInUsd { get; set; }
         public string CompanyCategoryName { get; set; }
+        public string InvoiceName { get; set; }
+        public string CustomerName { get; set; }
     }
 }
