@@ -16,6 +16,7 @@ namespace CreditContolTrackerAPIs.Interface
         Task<ICollection<InvoiceDetailsDto>> GetAllInvoiceDetails();
         IEnumerable<String> GetColumns();
         Task<IEnumerable<AnalyticReport>> GetCustomerInvoice(int Id);
+        Task<IEnumerable<Prediction>> GetPredictions(int Id);
 
     }
 }

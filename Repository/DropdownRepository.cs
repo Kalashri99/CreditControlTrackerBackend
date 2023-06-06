@@ -236,16 +236,7 @@ namespace CreditContolTrackerAPIs.Repository
 
         public async Task<IEnumerable<AnalyticReport>> GetCustomerInvoice(int Id)
         {
-            //var query = _context.Database.SqlQueryRaw<Customer>("EXEC GetCustomerDataById @CustomerId", new SqlParameter("@CustomerId", Id));
-
-
-
-            //// Execute the query and retrieve the customer
-            //var customer = query.SingleOrDefault();
-
-
-
-            //return (IEnumerable<Customer>)customer;
+            
             //var parameters = new SqlParameter("@CustomerId", Id);
 
 
@@ -260,6 +251,12 @@ namespace CreditContolTrackerAPIs.Repository
 
 
             return (IEnumerable<AnalyticReport>)customers;
+        }
+
+        public async Task<IEnumerable<Prediction>> GetPredictions(int Id)
+        {
+            var prediction = _context.Predictions.FromSql($"CalculateAverageTimeDifference {Id}").ToList();
+            return prediction ;
         }
     }
 }

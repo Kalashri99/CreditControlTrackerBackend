@@ -135,5 +135,22 @@ namespace CreditContolTrackerAPIs.Controllers
             return Ok(customer);
         }
 
+        [HttpGet("Cust/{id}")]
+        public async Task<IActionResult> GetPredictions(int id)
+        {
+            var customer = await _dropdownRepository.GetPredictions(id);
+
+
+
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+
+
+            return Ok(customer);
+        }
+
     }
     }
