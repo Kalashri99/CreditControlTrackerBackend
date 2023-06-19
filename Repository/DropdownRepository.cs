@@ -258,6 +258,14 @@ namespace CreditContolTrackerAPIs.Repository
             var prediction = _context.Predictions.FromSql($"CalculateAverageTimeDifference {Id}").ToList();
             return prediction ;
         }
+
+        public async Task<IEnumerable<TotalAnalysis>> GetTotalAnalysis()
+        {
+            var analysis = _context.TotalAnalysis.FromSql($"CalculateGeneralAnalytics").ToList();
+           // var analysis = _context.Database.SqlQuery<TotalAnalysis>($"EXEC CalculateGeneralAnalytics").SingleOrDefault();
+            return analysis;
+        }
+
+
     }
 }
-

@@ -152,5 +152,21 @@ namespace CreditContolTrackerAPIs.Controllers
             return Ok(customer);
         }
 
+        [HttpGet("TotalAnalysis")]
+        public async Task<IActionResult> GetTotalAnalysis()
+        {
+            var analysis = await _dropdownRepository.GetTotalAnalysis();
+
+
+
+            if (analysis == null)
+            {
+                return NotFound();
+            }
+
+
+
+            return Ok(analysis);
+        }
     }
     }
