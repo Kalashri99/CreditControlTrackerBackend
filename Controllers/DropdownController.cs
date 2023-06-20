@@ -25,12 +25,23 @@ namespace CreditContolTrackerAPIs.Controllers
 
         [HttpGet("AllInvoiceDetail")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<InvoiceDetail>))]
-        public async Task<IActionResult> GetInvoiceDetail()
+        public async Task<IActionResult> GetInvoiceDetail(int pageNumber=1,int pageSize=100)
         {
-            var InvoiceDetails = await _dropdownRepository.GetAllInvoiceDetails();
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            return Ok(InvoiceDetails);
+            var InvoiceDetails = await _dropdownRepository.GetAllInvoiceDetails();
+            var pagedItems=InvoiceDetails.Skip((pageNumber-1)*pageSize).Take(pageSize);
+            var totalCount=InvoiceDetails.Count();
+            var totalPages=(int)Math.Ceiling((double)totalCount/pageSize);
+            var response = new
+            {
+                TotalPages = totalPages,
+                TotalCount = totalCount,
+                Items = pagedItems,
+
+            };
+            return Ok(response);
         }
 
 

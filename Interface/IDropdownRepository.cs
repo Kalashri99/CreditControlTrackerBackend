@@ -19,5 +19,6 @@ namespace CreditContolTrackerAPIs.Interface
         Task<IEnumerable<Prediction>> GetPredictions(int Id);
         Task<IEnumerable<TotalAnalysis>> GetTotalAnalysis();
 
+
     }
 }
