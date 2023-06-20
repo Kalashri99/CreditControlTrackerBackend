@@ -18,19 +18,19 @@ namespace CreditContolTrackerAPIs.Dto
 
         public DateTime? DueDate { get; set; }
 
-        public long? BalanceInCurrency { get; set; }
+        public double? BalanceInCurrency { get; set; }
 
         public string? Currency { get; set; }
 
-        public long? Usdbalance { get; set; }
+        public double? Usdbalance { get; set; }
 
         public string? Provisioning { get; set; }
 
-        public long? BalanceInUsd { get; set; }
+        public double? BalanceInUsd { get; set; }
 
-        public long? CreditNoteDiscounts { get; set; }
+        public double? CreditNoteDiscounts { get; set; }
 
-        public long? CreditUsdamount { get; set; }
+        public double? CreditUsdamount { get; set; }
 
         public string? AccountManager { get; set; }
 
@@ -66,7 +66,7 @@ namespace CreditContolTrackerAPIs.Dto
 
         public string SalesVp { get; set; }
 
-        public long? FusionAccountNumber { get; set; }
+        public double? FusionAccountNumber { get; set; }
 
         public string FusionAccountName { get; set; }
 
@@ -91,12 +91,12 @@ namespace CreditContolTrackerAPIs.Dto
         public Receipt Receipt { get; set; }
         public int ReceiptId { get; set; }
         public DateTime? Date { get; set; }
-        public long? RecOrigCurrAmount { get; set; }
-        public long? AmountInUsd { get; set; }
+        public double? RecOrigCurrAmount { get; set; }
+        public double? AmountInUsd { get; set; }
         public string? ReceivedIn { get; set; }
         public string? CheckWire { get; set; }
         public string? BankName { get; set; }
-        public long Column8 { get; set; }
+        public double Column8 { get; set; }
 
     }
 

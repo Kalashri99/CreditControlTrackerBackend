@@ -25,7 +25,7 @@ namespace CreditControlTrackerAPIs.Services
             DataTable dataTable = new DataTable();
 
 
-            string filePath = @"D:\Credit_Control_System\Data.xlsx";
+            string filePath = @"D:\CreditControlTracker\newSheet.xlsx";
 
             Application excel = new Application();
             Workbook workbook = excel.Workbooks.Open(filePath);
@@ -114,9 +114,9 @@ namespace CreditControlTrackerAPIs.Services
             return data;
         }
 
-        long stringToLong(string data)
+        double stringToDouble(string data)
         {
-            return long.TryParse(data, out long var1) ? var1 : 0;
+            return double.TryParse(data, out double var1) ? var1 : 0;
         }
 
         int stringToInt(string data)
@@ -164,8 +164,8 @@ namespace CreditControlTrackerAPIs.Services
                     int agingId = AddAging(objectArray[row, 14]?.ToString());
                     int companyCategoryId = AddCompanyCategory(objectArray[row, 49]?.ToString());
                     int customerId = AddCustomer(objectArray[row, 2]?.ToString(), objectArray[row, 3]?.ToString());
-                    int receiptId = AddReceipt(stringToDateTime(objectArray[row, 16]?.ToString()), stringToLong(objectArray[row, 17]?.ToString()),
-                       stringToLong(objectArray[row, 18]?.ToString()), objectArray[row, 19]?.ToString(), objectArray[row, 20]?.ToString(), objectArray[row, 21]?.ToString());
+                    int receiptId = AddReceipt(stringToDateTime(objectArray[row, 16]?.ToString()),stringToDouble(objectArray[row, 17]?.ToString()),
+                      stringToDouble(objectArray[row, 18]?.ToString()), objectArray[row, 19]?.ToString(), objectArray[row, 20]?.ToString(), objectArray[row, 21]?.ToString());
                     // string invNo=row[3].ToString(); 
                     //var existingInvoiceDetail = _context.InvoiceDetails.FirstOrDefault(i => i.InvoiceNo == InvoiceNo);
                     //if(existingInvoiceDetail==null) 
@@ -186,14 +186,14 @@ namespace CreditControlTrackerAPIs.Services
                             InvoiceDate = stringToDateTime(objectArray[row, 7]?.ToString()),
                             PaymentTerm = stringToInt(objectArray[row, 8]?.ToString()),
                             DueDate = stringToDateTime(objectArray[row, 9]?.ToString()),
-                            BalanceInCurrency = stringToLong(objectArray[row, 10]?.ToString()),
+                            BalanceInCurrency =stringToDouble(objectArray[row, 10]?.ToString()),
                             Currency = objectArray[row, 11]?.ToString(),
-                            Usdbalance = stringToLong(objectArray[row, 12]?.ToString()),
+                            Usdbalance =stringToDouble(objectArray[row, 12]?.ToString()),
                             Provisioning = objectArray[row, 15]?.ToString(),
-                            BalanceInUsd = stringToLong(objectArray[row, 23]?.ToString()),
+                            BalanceInUsd =stringToDouble(objectArray[row, 23]?.ToString()),
                             Category = objectArray[row, 26]?.ToString(),
-                            CreditNoteDiscounts = stringToLong(objectArray[row, 24]?.ToString()),
-                            CreditUsdamount = stringToLong(objectArray[row, 25]?.ToString()),
+                            CreditNoteDiscounts =stringToDouble(objectArray[row, 24]?.ToString()),
+                            CreditUsdamount =stringToDouble(objectArray[row, 25]?.ToString()),
                             AccountManager = objectArray[row, 27]?.ToString(),
                             Cell = objectArray[row, 28]?.ToString(),
                             BrnFacTuName = objectArray[row, 29]?.ToString(),
@@ -212,7 +212,7 @@ namespace CreditControlTrackerAPIs.Services
                             SalesPoc = objectArray[row, 43]?.ToString(),
                             SalesVp = objectArray[row, 44]?.ToString(),
                             FusionAccountName = objectArray[row, 46]?.ToString(),
-                            FusionAccountNumber = stringToLong(objectArray[row, 45]?.ToString()),
+                            FusionAccountNumber =stringToDouble(objectArray[row, 45]?.ToString()),
                             UpdatedSalesPoc = objectArray[row, 47]?.ToString(),
                             UpdatedSalesVp = objectArray[row, 48]?.ToString(),
                             AccountTypeId = accountTypeId,
@@ -235,13 +235,13 @@ namespace CreditControlTrackerAPIs.Services
                         existingInvoiceDetail.PoNo = objectArray[row, 5]?.ToString();
                         existingInvoiceDetail.InvoiceDate = stringToDateTime(objectArray[row, 7]?.ToString());
                         existingInvoiceDetail.DueDate = stringToDateTime(objectArray[row, 9]?.ToString());
-                        existingInvoiceDetail.BalanceInCurrency = stringToLong(objectArray[row, 10]?.ToString());
+                        existingInvoiceDetail.BalanceInCurrency =stringToDouble(objectArray[row, 10]?.ToString());
                         existingInvoiceDetail.Currency = objectArray[row, 11]?.ToString();
-                        existingInvoiceDetail.Usdbalance = stringToLong(objectArray[row, 12]?.ToString());
+                        existingInvoiceDetail.Usdbalance =stringToDouble(objectArray[row, 12]?.ToString());
                         existingInvoiceDetail.Provisioning = objectArray[row, 15]?.ToString();
-                        existingInvoiceDetail.BalanceInUsd = stringToLong(objectArray[row, 23]?.ToString());
-                        existingInvoiceDetail.CreditNoteDiscounts = stringToLong(objectArray[row, 24]?.ToString());
-                        existingInvoiceDetail.CreditUsdamount = stringToLong(objectArray[row, 25]?.ToString());
+                        existingInvoiceDetail.BalanceInUsd =stringToDouble(objectArray[row, 23]?.ToString());
+                        existingInvoiceDetail.CreditNoteDiscounts =stringToDouble(objectArray[row, 24]?.ToString());
+                        existingInvoiceDetail.CreditUsdamount =stringToDouble(objectArray[row, 25]?.ToString());
                         existingInvoiceDetail.AccountManager = objectArray[row, 27]?.ToString();
                         existingInvoiceDetail.Cell = objectArray[row, 28]?.ToString();
                         existingInvoiceDetail.BrnFacTuName = objectArray[row, 29]?.ToString();
@@ -260,7 +260,7 @@ namespace CreditControlTrackerAPIs.Services
                         existingInvoiceDetail.SalesPoc = objectArray[row, 43]?.ToString();
                         existingInvoiceDetail.SalesVp = objectArray[row, 44]?.ToString();
                         existingInvoiceDetail.FusionAccountName = objectArray[row, 45]?.ToString();
-                        existingInvoiceDetail.FusionAccountNumber = stringToLong(objectArray[row, 46]?.ToString());
+                        existingInvoiceDetail.FusionAccountNumber =stringToDouble(objectArray[row, 46]?.ToString());
                         existingInvoiceDetail.UpdatedSalesPoc = objectArray[row, 47]?.ToString();
                         existingInvoiceDetail.UpdatedSalesVp = objectArray[row, 48]?.ToString();
                         existingInvoiceDetail.AccountTypeId = accountTypeId;
@@ -341,8 +341,8 @@ namespace CreditControlTrackerAPIs.Services
                 int agingId = AddAging(objectArray[row, 14]?.ToString());
                 int companyCategoryId = AddCompanyCategory(objectArray[row, 49]?.ToString());
                 int customerId = AddCustomer(objectArray[row, 2]?.ToString(), objectArray[row, 3]?.ToString());
-                 int receiptId = AddReceipt(stringToDateTime(objectArray[row, 16]?.ToString()), stringToLong(objectArray[row, 17]?.ToString()),
-                    stringToLong(objectArray[row, 18]?.ToString()), objectArray[row, 19]?.ToString(), objectArray[row, 20]?.ToString(), objectArray[row, 21]?.ToString());
+                 int receiptId = AddReceipt(stringToDateTime(objectArray[row, 16]?.ToString()),stringToDouble(objectArray[row, 17]?.ToString()),
+                   stringToDouble(objectArray[row, 18]?.ToString()), objectArray[row, 19]?.ToString(), objectArray[row, 20]?.ToString(), objectArray[row, 21]?.ToString());
                 // string invNo=row[3].ToString(); 
                 //   var existingInvoiceDetail = _context.InvoiceDetails.FirstOrDefault(i=>i.InvoiceNo==InvoiceNo);
                 //  string InvoiceId;
@@ -359,14 +359,14 @@ namespace CreditControlTrackerAPIs.Services
                         InvoiceDate = stringToDateTime(objectArray[row, 7]?.ToString()),
                         PaymentTerm=stringToInt(objectArray[row,8]?.ToString()),
                         DueDate =stringToDateTime(objectArray[row, 9]?.ToString()),
-                        BalanceInCurrency = stringToLong(objectArray[row,10]?.ToString()),
+                        BalanceInCurrency =stringToDouble(objectArray[row,10]?.ToString()),
                         Currency = objectArray[row, 11]?.ToString(),
-                        Usdbalance=stringToLong(objectArray[row, 12]?.ToString()),
+                        Usdbalance=stringToDouble(objectArray[row, 12]?.ToString()),
                         Provisioning=objectArray[row,15]?.ToString(),
-                        BalanceInUsd=stringToLong(objectArray[row, 23]?.ToString()),
+                        BalanceInUsd=stringToDouble(objectArray[row, 23]?.ToString()),
                         Category=objectArray[row, 26]?.ToString(),
-                        CreditNoteDiscounts=stringToLong(objectArray[row, 24]?.ToString()),
-                        CreditUsdamount=stringToLong(objectArray[row, 25]?.ToString()),
+                        CreditNoteDiscounts=stringToDouble(objectArray[row, 24]?.ToString()),
+                        CreditUsdamount=stringToDouble(objectArray[row, 25]?.ToString()),
                         AccountManager= objectArray[row, 27]?.ToString(),
                         Cell= objectArray[row, 28]?.ToString(),
                         BrnFacTuName=objectArray[row,29]?.ToString(),
@@ -385,7 +385,7 @@ namespace CreditControlTrackerAPIs.Services
                         SalesPoc= objectArray[row, 43]?.ToString(),
                         SalesVp=objectArray[row,44]?.ToString(),
                         FusionAccountName= objectArray[row, 46]?.ToString(),
-                        FusionAccountNumber=stringToLong(objectArray[row, 45]?.ToString()),
+                        FusionAccountNumber=stringToDouble(objectArray[row, 45]?.ToString()),
                         UpdatedSalesPoc= objectArray[row, 47]?.ToString(),
                         UpdatedSalesVp= objectArray[row, 48]?.ToString(),
                         AccountTypeId=accountTypeId,
@@ -408,13 +408,13 @@ namespace CreditControlTrackerAPIs.Services
                     existingInvoiceDetail.PoNo = objectArray[row, 5]?.ToString();
                          existingInvoiceDetail.InvoiceDate = stringToDateTime(objectArray[row, 7]?.ToString());
  existingInvoiceDetail.DueDate = stringToDateTime(objectArray[row, 9]?.ToString());
- existingInvoiceDetail.BalanceInCurrency = stringToLong(objectArray[row, 10]?.ToString());
+ existingInvoiceDetail.BalanceInCurrency =stringToDouble(objectArray[row, 10]?.ToString());
                          existingInvoiceDetail.Currency = objectArray[row, 11]?.ToString();
-                         existingInvoiceDetail.Usdbalance = stringToLong(objectArray[row, 12]?.ToString());
+                         existingInvoiceDetail.Usdbalance =stringToDouble(objectArray[row, 12]?.ToString());
                          existingInvoiceDetail.Provisioning = objectArray[row, 15]?.ToString();
-                         existingInvoiceDetail.BalanceInUsd = stringToLong(objectArray[row, 23]?.ToString());
-                         existingInvoiceDetail.CreditNoteDiscounts = stringToLong(objectArray[row, 24]?.ToString());
-                         existingInvoiceDetail.CreditUsdamount = stringToLong(objectArray[row, 25]?.ToString());
+                         existingInvoiceDetail.BalanceInUsd =stringToDouble(objectArray[row, 23]?.ToString());
+                         existingInvoiceDetail.CreditNoteDiscounts =stringToDouble(objectArray[row, 24]?.ToString());
+                         existingInvoiceDetail.CreditUsdamount =stringToDouble(objectArray[row, 25]?.ToString());
                          existingInvoiceDetail.AccountManager = objectArray[row, 27]?.ToString();
                         existingInvoiceDetail.Cell = objectArray[row, 28]?.ToString();
                         existingInvoiceDetail.BrnFacTuName = objectArray[row, 29]?.ToString();
@@ -433,7 +433,7 @@ namespace CreditControlTrackerAPIs.Services
                      existingInvoiceDetail.SalesPoc = objectArray[row, 43]?.ToString();
                       existingInvoiceDetail.SalesVp = objectArray[row, 44]?.ToString();
                          existingInvoiceDetail.FusionAccountName = objectArray[row, 45]?.ToString();
-                        existingInvoiceDetail.FusionAccountNumber = stringToLong(objectArray[row, 46]?.ToString());
+                        existingInvoiceDetail.FusionAccountNumber =stringToDouble(objectArray[row, 46]?.ToString());
                         existingInvoiceDetail.UpdatedSalesPoc = objectArray[row, 47]?.ToString();
                         existingInvoiceDetail.UpdatedSalesVp = objectArray[row, 48]?.ToString();
                          existingInvoiceDetail.AccountTypeId = accountTypeId;
@@ -524,7 +524,7 @@ namespace CreditControlTrackerAPIs.Services
 
             using (var context = _contextFactory.Create())
             {
-                // Check if the data already exists in the database
+                // Check if the data already exists in the databasestringto
                 var existinginvoiceTypes = context.InvoiceTypes.FirstOrDefault(t => t.InvoiceTypeName == Name);
                 if (existinginvoiceTypes == null)
                 {
@@ -658,7 +658,7 @@ namespace CreditControlTrackerAPIs.Services
             }
             return companyCategoryId;
         }
-        public int AddReceipt(DateTime? date, long recOrigCurrAmount, long amountInUsd, string receivedIn, string checkWire, string bankName)
+        public int AddReceipt(DateTime? date, double recOrigCurrAmount, double amountInUsd, string receivedIn, string checkWire, string bankName)
         {
             int receiptId;
             using (var context = _contextFactory.Create())

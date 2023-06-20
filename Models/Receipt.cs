@@ -10,9 +10,9 @@ public partial class Receipt
 
     public DateTime? Date { get; set; }  
 
-    public long? RecOrigCurrAmount { get; set; } 
+    public double? RecOrigCurrAmount { get; set; } 
 
-    public long? AmountInUsd { get; set; }
+    public double? AmountInUsd { get; set; }
 
     public string? ReceivedIn { get; set; }
 
@@ -20,7 +20,7 @@ public partial class Receipt
 
     public string? BankName { get; set; }
 
-    public long Column8 { get; set; }
+    public double Column8 { get; set; }
     public string InvoiceNo { get; set; }
     [ForeignKey("InvoiceNo")]
     public InvoiceDetail InvoiceDetail { get; set; }

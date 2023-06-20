@@ -19,19 +19,19 @@ public partial class InvoiceDetail
     public int? PaymentTerm { get; set; }
 
     public string? Category { get; set; }    
-    public long? BalanceInCurrency { get; set; }
+    public double? BalanceInCurrency { get; set; }
 
     public string? Currency { get; set; }
 
-    public long? Usdbalance { get; set; }
+    public double? Usdbalance { get; set; }
 
     public string? Provisioning { get; set; }
 
-    public long? BalanceInUsd { get; set; }
+    public double? BalanceInUsd { get; set; }
 
-    public long? CreditNoteDiscounts { get; set; }
+    public double? CreditNoteDiscounts { get; set; }
 
-    public long? CreditUsdamount { get; set; }
+    public double? CreditUsdamount { get; set; }
 
     public string? AccountManager { get; set; }
 
@@ -67,7 +67,7 @@ public partial class InvoiceDetail
 
     public string SalesVp { get; set; }
 
-    public long? FusionAccountNumber { get; set; }
+    public double? FusionAccountNumber { get; set; }
 
     public string FusionAccountName { get; set; }
 

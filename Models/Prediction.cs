@@ -7,7 +7,7 @@ namespace CreditContolTrackerAPIs.Models
         public string InvoiceNo { get; set; }
         public DateTime? InvoiceDate { get; set; }
         public DateTime? DueDate { get; set; }
-        public long? BalanceInUsd { get; set; }
+        public double? BalanceInUsd { get; set; }
 
         public DateTime? Predicted_Date { get; set; }
 
