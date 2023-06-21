@@ -122,11 +122,19 @@ namespace CreditContolTrackerAPIs.Controllers
 
 
         [HttpGet("api/invoiceDetails")]
-        public async Task<IActionResult> GetInvoiceDetails(string Entity, string CompanyCategory, string InvoiceType, string Customer)
+        public async Task<IActionResult> GetInvoiceDetails(string Entity, string CompanyCategory, string InvoiceType, string Customer,int pageNumber=1,int pageSize=100 )
         {
             var invoiceDetails =await _dropdownRepository.GetInvoiceDetails(Entity,CompanyCategory,InvoiceType,Customer);
-
-            return Ok(invoiceDetails);
+            var pagedItems = invoiceDetails.Skip((pageNumber - 1) * pageSize).Take(pageSize);
+            var totalCount = invoiceDetails.Count();
+            var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+            var response = new
+            {
+                Items = pagedItems,
+                TotalCount=totalCount,
+                TotalPages=totalPages
+            };
+            return Ok(response);
         }
 
         [HttpGet("Customer/{id}")]
