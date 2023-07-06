@@ -188,19 +188,19 @@ namespace CreditContolTrackerAPIs.Repository
             foreach (var invoiceDetail in invoiceDetails)
             {
                 // Find the associated Receipt for each InvoiceDetailsDto
-                var receipt = receipts.FirstOrDefault(r => r.InvoiceNo == invoiceDetail.InvoiceNo);
+                var receipt = receipts.Where(r => r.InvoiceNo == invoiceDetail.InvoiceNo);
 
                 // Map the relevant Receipt properties to InvoiceDetailsDto
                 if (receipt != null)
                 {
                     //invoiceDetail.ReceiptId = receipt.ReceiptId;
-                    invoiceDetail.Date = receipt.Date;
-                    invoiceDetail.RecOrigCurrAmount = receipt.RecOrigCurrAmount;
-                    invoiceDetail.AmountInUsd = receipt.AmountInUsd;
-                    invoiceDetail.ReceivedIn = receipt.ReceivedIn;
-                    invoiceDetail.CheckWire = receipt.CheckWire;
-                    invoiceDetail.BankName = receipt.BankName;
-                    invoiceDetail.Column8 = receipt.Column8;
+                    //invoiceDetail.Date = receipt.Date;
+                    //invoiceDetail.RecOrigCurrAmount = receipt.RecOrigCurrAmount;
+                    invoiceDetail.AmountInUsd = receipt.Sum(S => S.AmountInUsd);
+                    //invoiceDetail.ReceivedIn = receipt.ReceivedIn;
+                    //invoiceDetail.CheckWire = receipt.CheckWire;
+                    //invoiceDetail.BankName = receipt.BankName;
+                    //invoiceDetail.Column8 = receipt.Column8;
                     // ... map other properties
                 }
 

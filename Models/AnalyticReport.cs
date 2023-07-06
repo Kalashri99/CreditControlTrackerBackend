@@ -6,6 +6,7 @@ namespace CreditContolTrackerAPIs.Models
     public class AnalyticReport
     {
         [Key]
+        public Guid Id { get; set; }
         public string InvoiceNo { get; set; }
         public DateTime? InvoiceDate { get; set; }
         public DateTime? DueDate { get; set; }
@@ -15,5 +16,9 @@ namespace CreditContolTrackerAPIs.Models
         public string CompanyCategoryName { get; set; }
         public string InvoiceName { get; set; }
         public string CustomerName { get; set; }
+        public double AmountInUsd { get; set; }
+        public string BankName { get; set; }
+        public string CheckWire { get; set; }
+        public string ReceivedIn { get; set; }
     }
 }
