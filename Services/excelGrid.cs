@@ -25,7 +25,7 @@ namespace CreditControlTrackerAPIs.Services
             DataTable dataTable = new DataTable();
 
 
-            string filePath = @"D:\Credit_Control_System\newSheet.xlsx";
+            string filePath = @"D:\CreditControlTracker\CreditContolTrackerAPIs\data\newSheet.xlsx";
 
             Application excel = new Application();
             Workbook workbook = excel.Workbooks.Open(filePath);
@@ -144,10 +144,15 @@ namespace CreditControlTrackerAPIs.Services
         public void InsertData()
         {
             object[,] objectArray = datatable();
+            List<List<object>> defaultInvoices=new List<List<object>>();
             int batchSize = 500;
+
             int totalRecords = objectArray.GetLength(0); // Get the total number of records
+            
+            
             for (int startIndex = 10; startIndex < totalRecords; startIndex += batchSize)
             {
+                //List<List<object>> defaultInvoices = new List<List<object>>();
                 int endIndex = Math.Min(startIndex + batchSize, totalRecords);
                 List<InvoiceDetail> InsertInvoiceDetailBulk = new List<InvoiceDetail>();
                 List<InvoiceDetail> UpdateInvoiceDetailsBulk = new List<InvoiceDetail>();
@@ -155,8 +160,22 @@ namespace CreditControlTrackerAPIs.Services
                 for (int row = startIndex; row <= endIndex; row++)
                 {
                     string InvoiceNo = objectArray[row, 4]?.ToString();
-                    if (InvoiceNo == " " || InvoiceNo == "0" || InvoiceNo==null)
+                    if (InvoiceNo == " " || InvoiceNo == "0" || InvoiceNo == null || InvoiceNo.Contains("Details Required",StringComparison.CurrentCultureIgnoreCase) || InvoiceNo.Contains("Excess Payment", StringComparison.CurrentCultureIgnoreCase)
+                        || InvoiceNo.Contains("Duplicate Payment", StringComparison.CurrentCultureIgnoreCase) || InvoiceNo.Contains("Excess Receipt",StringComparison.CurrentCultureIgnoreCase))
+                    {
+                       List<object> rowValue=Enumerable.Range(1, objectArray.GetLength(1)).Select(col=>objectArray[row,col]).ToArray().ToList();
+                        defaultInvoices.Add(rowValue);
+                        ////Creating an excel file
+                        //Application excelFile = new();
+                        //Workbook workbook = excelFile.Workbooks.Add();
+                        //Worksheet ws = (Worksheet)workbook.ActiveSheet;
+
+                        ////Adding the headers to the excel file
+                       
+                        ////Range cellRange = ws.Range["A1:G1"];
+                        
                         continue;
+                    }
                     int entityId = AddEntity(objectArray[row, 1]?.ToString());
                     int accountTypeId = AddAccountType(objectArray[row, 40]?.ToString());
                     int invoiceTypeId = AddInvoiceTypes(objectArray[row, 34]?.ToString());
@@ -164,7 +183,11 @@ namespace CreditControlTrackerAPIs.Services
                     int agingId = AddAging(objectArray[row, 14]?.ToString());
                     int companyCategoryId = AddCompanyCategory(objectArray[row, 49]?.ToString());
                     int customerId = AddCustomer(objectArray[row, 2]?.ToString(), objectArray[row, 3]?.ToString());
-                    int receiptId = AddReceipt(stringToDateTime(objectArray[row, 16]?.ToString()),stringToDouble(objectArray[row, 17]?.ToString()),
+                    int receiptId;
+                    if (objectArray[row, 18]?.ToString() == null)
+                        receiptId = -1;
+                    else
+                     receiptId = AddReceipt(stringToDateTime(objectArray[row, 16]?.ToString()),stringToDouble(objectArray[row, 17]?.ToString()),
                       stringToDouble(objectArray[row, 18]?.ToString()), objectArray[row, 19]?.ToString(), objectArray[row, 20]?.ToString(), objectArray[row, 21]?.ToString());
                     // string invNo=row[3].ToString(); 
                     //var existingInvoiceDetail = _context.InvoiceDetails.FirstOrDefault(i => i.InvoiceNo == InvoiceNo);
@@ -276,13 +299,16 @@ namespace CreditControlTrackerAPIs.Services
 
 
                     }
-                    var receipt = _context.Receipts.FirstOrDefault(r => r.ReceiptId == receiptId);
-                    if (receipt != null)
+                    if (receiptId != -1)
                     {
+
+                        var receipt = _context.Receipts.FirstOrDefault(r => r.ReceiptId == receiptId);
+                        //if (receipt != null)
+                        //{
                         receipt.InvoiceNo = InvoiceNo;
                         UpdateReceiptBulk.Add(receipt);
+                        // }
                     }
-                  
 
 
                 }
@@ -293,9 +319,38 @@ namespace CreditControlTrackerAPIs.Services
                     UpdateInvoiceDetailsBatchData(UpdateInvoiceDetailsBulk);
                 if (UpdateReceiptBulk.Any())
               UpdateRecieptBatchData(UpdateReceiptBulk);
-              
+               
 
             }
+
+
+            WriteDefaultInvoicesToExcel(defaultInvoices);
+        }
+
+        public void WriteDefaultInvoicesToExcel(List<List<object>> data)
+        {
+            var filePath = Path.Combine(
+                   Directory.GetCurrentDirectory(), "data",
+                   "Default Invoices.xlsx");
+            Application excelApp=new Application();
+            Workbook workbook = excelApp.Workbooks.Open(filePath);
+            Worksheet worksheet = workbook.ActiveSheet;
+            Range usedRange = worksheet.UsedRange;
+            int excelRowCount = usedRange.Rows.Count;
+            //int excelColCount = usedRange.Columns.Count;
+            int rowCount=data.Count();
+            int colCount=data[0].Count();
+            for(int row = 1; row <= rowCount; row++)
+            {
+                for(int col = 1; col <= colCount; col++)
+                    worksheet.Cells[row,col].Value = data[row-1][col-1];
+            } 
+            workbook.Save();
+            excelApp.Quit();
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(worksheet);
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(workbook);
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(excelApp);
+
 
         }
 
@@ -341,7 +396,11 @@ namespace CreditControlTrackerAPIs.Services
                 int agingId = AddAging(objectArray[row, 14]?.ToString());
                 int companyCategoryId = AddCompanyCategory(objectArray[row, 49]?.ToString());
                 int customerId = AddCustomer(objectArray[row, 2]?.ToString(), objectArray[row, 3]?.ToString());
-                 int receiptId = AddReceipt(stringToDateTime(objectArray[row, 16]?.ToString()),stringToDouble(objectArray[row, 17]?.ToString()),
+                int receiptId;
+                if (objectArray[row, 17]?.ToString() == null)
+                    receiptId = -1;
+                else
+                 receiptId = AddReceipt(stringToDateTime(objectArray[row, 16]?.ToString()),stringToDouble(objectArray[row, 17]?.ToString()),
                    stringToDouble(objectArray[row, 18]?.ToString()), objectArray[row, 19]?.ToString(), objectArray[row, 20]?.ToString(), objectArray[row, 21]?.ToString());
                 // string invNo=row[3].ToString(); 
                 //   var existingInvoiceDetail = _context.InvoiceDetails.FirstOrDefault(i=>i.InvoiceNo==InvoiceNo);
@@ -449,13 +508,16 @@ namespace CreditControlTrackerAPIs.Services
                   
 
                 }
-                    var receipt=_context.Receipts.FirstOrDefault(r=>r.ReceiptId== receiptId);   
-                if (receipt!=null)
+                if (receiptId != -1)
                 {
+                    var receipt = _context.Receipts.FirstOrDefault(r => r.ReceiptId == receiptId);
+                    // if (receipt!=null)
+                    //{
                     receipt.InvoiceNo = InvoiceNo;
-                }
-                UpdateReceiptBulk.Add(receipt);
 
+                    //}
+                    UpdateReceiptBulk.Add(receipt);
+                }
 
             }
 

@@ -12,7 +12,7 @@ namespace CreditContolTrackerAPIs.Models
         public DateTime? DueDate { get; set; }
         public DateTime? Date { get; set; }   
         public int? CreditChange { get; set; }
-        public double BalanceInUsd { get; set; }
+        public decimal BalanceInUsd { get; set; }
         public string CompanyCategoryName { get; set; }
         public string InvoiceName { get; set; }
         public string CustomerName { get; set; }
