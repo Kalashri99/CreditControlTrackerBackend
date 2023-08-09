@@ -26,30 +26,41 @@ builder.Services.AddScoped<ApplicationDbContextFactory>((provider) =>
 });
 builder.Services.AddScoped<excelGrid>();
 builder.Services.AddScoped<IDropdownRepository,DropdownRepository>();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowMyOrigin", p =>
+    {
+        p.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
 
-builder.Services.AddCors();
-app.UseCors(x => x
+//builder.Services.AddCors();
+//app.UseCors(x => x
 
-.AllowAnyMethod()
+//.AllowAnyMethod()
 
-.AllowAnyHeader()
+//.AllowAnyHeader()
 
-.SetIsOriginAllowed(origin => true) // allow any origin
+//.SetIsOriginAllowed(origin => true) // allow any origin
 
-                .AllowCredentials()); // allow credentials
-
+//                .AllowCredentials()); // allow credentials
 
 
 
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//}
+app.UseCors("AllowMyOrigin");
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
